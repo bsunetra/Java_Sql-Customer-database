@@ -1,0 +1,42 @@
+CREATE DATABASE billing_details;
+USE billing_details;
+
+-- Customer table
+CREATE TABLE cust_details (
+    cust_id INT PRIMARY KEY,
+    cust_name VARCHAR(25),
+    ph_no BIGINT,
+    location VARCHAR(25)
+);
+
+INSERT INTO cust_details VALUES
+(101, 'Kim', 2451865, 'Chennai'),
+(102, 'John', 239865, 'Mumbai'),
+(103, 'Sherif', 7564458, 'Chennai');
+
+-- Product table
+CREATE TABLE products (
+    prd_id INT AUTO_INCREMENT PRIMARY KEY,
+    prd_name VARCHAR(25),
+    price INT,
+    total_stock INT DEFAULT 0,
+    sold_stock INT DEFAULT 0
+);
+
+INSERT INTO products (prd_name, price, total_stock, sold_stock) VALUES
+('Keyboard', 7000, 60, 0),
+('Mouse', 3000, 16, 0),
+('Printer', 20000, 5, 0),
+('Laptop', 45000, 30, 0);
+
+-- Orders table
+CREATE TABLE orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    cust_id INT,
+    prd_id INT,
+    quantity INT,
+    order_date DATETIME DEFAULT NOW(),
+    FOREIGN KEY (cust_id) REFERENCES cust_details(cust_id),
+    FOREIGN KEY (prd_id) REFERENCES products(prd_id)
+);
+select * from cust_details;
